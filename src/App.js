@@ -11,6 +11,20 @@ const Styles = styled.div`
     margin: 0;
     padding: 0;
   }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .col {
+    display: flex;
+    flex-direction: col;
+  }
+
+  show-borders {
+    
+  }
 `
 
 function App () {
