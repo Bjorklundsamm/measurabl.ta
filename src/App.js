@@ -5,6 +5,9 @@ import styled from 'styled-components';
 
 // Components
 import Home from "./HomePage.jsx";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+
 
 const Styles = styled.div`
   #page {
@@ -35,9 +38,11 @@ function App () {
       <div
         id="page"
       >
+        <Header />
         <Switch location={location} key={location.pathname}>
           <Route path="/" exact component={Home} />
         </Switch>
+        <Footer />
       </div>
     </Styles>
   );

@@ -5,6 +5,7 @@ import Styled from 'styled-components';
 //components
 import SearchBar from "./components/SearchBar.jsx"
 import Table from "./components/Table.jsx"
+import Footer from "./"
 
 
 
@@ -33,43 +34,23 @@ class Home extends Component {
             id="homepage"
           >
             <section
-              id="header"
-            >
-              <div
-                className="row"
-              >
-                <img
-                  id="measurabl-logo"
-                  className="brand"
-                  src="https://www.measurabl.com/wp-content/uploads/2019/01/measurabl_logo_white.svg"
-                  alt="request not met - Logo"
-                />
-              </div>
-              <div
-                className="row"
-              >
-                <div
-                  className="col"
-                >
-                  <h1>Front-end Tehcnical Assessment</h1>
-                </div>
-                <div
-                  className="col"
-                >
-                  <SearchBar/>
-                </div>
-              </div>
-            </section>
-            <section
               id="table-1"
             >
+              <div
+                className="row"
+              >
               <h1>View IDs by Age</h1>
+              <SearchBar />
+              </div>
               <Table tableEntries={this.state.usersByAge}/>
             </section>
-            <section
-              id="table-2"
-            >
-              <h1>View IDs by Name</h1>
+            <section>
+              <div
+                className="row"
+              >
+                <h1>View IDs by Name</h1>
+                <SearchBar />
+              </div>
               <Table tableEntries={this.state.usersByName}/>
             </section>
           </div>

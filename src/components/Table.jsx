@@ -24,7 +24,7 @@ class Table extends React.Component {
         <tr>
           {this.state.columns.map(i => (
               <th
-                className="table-entry-head"
+                className="table-entry-head table-entry"
               >
                 {i}
               </th>
