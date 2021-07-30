@@ -1,5 +1,38 @@
-  
+//libraries 
 import React from "react";
+import styled from "styled-components";
+
+const Styles = styled.div`
+  #search-bar {
+    background-color: rgba(255,255,255,1);
+    padding: 5 10 5 10;
+    border-radius: 100px;
+  }
+
+  #submit-btn {
+    background-color: rgba(0,177,143,1);
+    padding: 2 10 2 10;
+    border-radius: 50px;
+    &:hover {
+      background: rgba(0,177,143,.5);
+      transition: .3s ease;
+    }
+  }
+
+  #clear-btn {
+    color: rgba(0,177,143,.5);
+    &:hover {
+      color: rgba(0,177,143,1);
+      transition: .3s ease;
+    }
+  }
+
+  .search-bar-content {
+    background-color: rgba(255,255,255,1);
+    border: none;
+    outline: none;
+  }
+`
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -39,32 +72,39 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div
-        className="row"
-      >
-        <form
-          id="search-bar"
-          onSubmit={this.handleSubmit}
+      <Styles>
+        <div
+          className="row"
         >
-          <input
-            id="search-bar-input"
-            type="text"
-            name="search"
-            placeholder="Enter your search here"
-            value={this.state.search}
-            onChange={this.handleChange}
-          />
-          <input
-            type="submit"
-            value="Submit"
-          />
-          <button
-           onClick={this.handleClear}
+          <form
+            id="search-bar"
+            onSubmit={this.handleSubmit}
           >
-            Clear Search
-          </button>
-        </form>
-      </div>
+            <input
+              id="search-bar-input"
+              type="text"
+              name="search"
+              className="search-bar-content text g"
+              placeholder="Enter your search here"
+              value={this.state.search}
+              onChange={this.handleChange}
+            />
+            <button
+              onClick={this.handleClear}
+              id="clear-btn"
+              className="search-bar-content text g"
+            >
+              ⛌
+            </button>
+            <input
+              type="submit"
+              value="⚲"
+              id="submit-btn"
+              className="search-bar-content text"
+            />
+          </form>
+        </div>
+      </Styles>
     )
   }
 }
