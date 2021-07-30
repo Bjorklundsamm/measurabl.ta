@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReactPaginate from 'react-paginate';
+import $ from 'jquery';
 
 const Styles = styled.div`
   .table {
@@ -91,14 +92,23 @@ class Table extends React.Component {
     this.setState({page})
   }
 
+  copyToClipboard = (e) => {
+    e.preventDefault();
+    var $i = $(e.target).closest('tr').attr('value');
+    navigator.clipboard.writeText($i);
+  };
+
   render() {
     const {page, perPage, pages, data} = this.state;
     let items = data.slice(page * perPage, (page + 1) * perPage);
+    
 
     let entries = items.map(entry => (
       <tr 
         key={entry.id}
         className="table-row"
+        value={JSON.stringify(entry)}
+        onClick={this.copyToClipboard}
       >
         {Object.entries(entry).map(([key, value]) => (
           <td
