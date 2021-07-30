@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Styles = styled.div`
   #search-bar {
     background-color: rgba(255,255,255,1);
-    padding: 5 10 5 10;
+    padding: 5px 10px 5px 10px;
     border-radius: 100px;
   }
 
@@ -73,8 +73,8 @@ class SearchBar extends React.Component {
   render() {
     return (
       <Styles>
-        <div
-          className="row"
+        <section
+          id="search-bar-container"
         >
           <form
             id="search-bar"
@@ -103,7 +103,7 @@ class SearchBar extends React.Component {
               className="search-bar-content text"
             />
           </form>
-        </div>
+        </section>
       </Styles>
     )
   }

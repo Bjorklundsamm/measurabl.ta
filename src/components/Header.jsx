@@ -4,9 +4,10 @@ import styled from 'styled-components';
 
 const Styles = styled.div`
     #header {
-      position: fixed;
+      position: relative;
       top: 0;
       left: 0;
+      z-index: 2019;
     }
 
     #title {
@@ -15,7 +16,7 @@ const Styles = styled.div`
     }
 
     #measurabl-logo {
-      width: 75%;
+      width: 20%;
       min-width: 75px;
       border-bottom: 5px solid #ffffff;
     }

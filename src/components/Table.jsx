@@ -1,11 +1,20 @@
 //libraries
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
+import styled from 'styled-components';
 import $ from 'jquery';
 
 const Styles = styled.div`
-  .table {
+  #table-container {
+    position: relative;
+    text-align: center;
+    background: rgba(255,255,255,1);
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 2019;
+  }
+
+  #table {
       position: relative;
       width: 100%;
       background: rgba(0,177,143,1);
@@ -28,109 +37,105 @@ const Styles = styled.div`
     text-decoration: underline 2px rgba(255,255,255,1) !important;
   }
 
+//Pagination Styles
   .pagination {
     display: flex;
     justify-content: center;
     list-style: none;
     margin-top: 20px;
     padding: 0;
-   }
+    font-family: 'Red Rose', cursive;
+  }
    
-   .pagination a {
+  .pagination a {
     cursor: default;
-    padding: 10 15 10 15;
+    padding: 10px 15px 10px 15px;
     border-radius: 100px;
-    border: 1px solid #6c7ac9;
-    color: #6c7ac9;
+    border: 1px solid rgba(0,177,143,1);
+    color: rgba(255,255,255,1);
     margin-left: 10px;
-   }
+  }
    
-   .pagination li:not(.disabled) a:hover {
+  .pagination li:not(.disabled) a:hover {
     background: rgba(0,177,143,.4);
     cursor: pointer;
-   }
+  }
    
-   .pagination li a {
+  .pagination li a {
     font-weight: bold;
     color: rgba(255,255,255,1);
     background: rgba(0,177,143,1);
     border: none;
     border-radius: 100px;
-   }
-
-   .pagination li.disabled a, li.active a {
+  }
+  
+  .pagination li.disabled a, li.active a {
     pointer-events: none;
     color: rgba(255,255,255,1);
     background: rgba(0,177,143,.4);
     border: none;
-   }
+  }
 `
 
-class Table extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-        data: [],
-        perPage: 6,
-        page: 0,
-        pages: 0,
-      }
-      
-  }
+const Table = (props) => {
+  const { data } = props;
+  console.log(props.data);
 
-  componentDidMount() {
-    const {perPage} = this.state;
-    const {data} = this.props.tableEntries;
-    this.setState({
-      data,
-      pages: Math.ceil(data.length / perPage)
-    });
+  // Pagination Settings
+  const [pagination, setPagination] = useState({
+    data: data,
+    offset: 0,
+    numberPerPage: 6,
+    pageCount: 0,
+    currentData: [],
+  });
+
+  useEffect(() => {
+    setPagination((prevState) => ({
+      ...prevState,
+      pageCount: prevState.data.length / prevState.numberPerPage,
+      currentData: prevState.data.slice(
+        pagination.offset,
+        pagination.offset + pagination.numberPerPage,
+      ),
+    }));
+  }, [pagination.numberPerPage, pagination.offset]);
+
+  const HandlePageClick = (event) => {
+    const { selected } = event;
+    const offset = selected * pagination.numberPerPage;
+    setPagination({ ...pagination, offset });
   };
 
-  handlePageClick = (event) => {
-    let page = event.selected;
-    this.setState({page})
-  }
-
-  copyToClipboard = (e) => {
+  let copyToClipboard = (e) => {
     e.preventDefault();
     var $i = $(e.target).closest('tr').attr('value');
     navigator.clipboard.writeText($i);
   };
 
-  render() {
-    const {page, perPage, pages, data} = this.state;
-    let items = data.slice(page * perPage, (page + 1) * perPage);
-    
-
-    let entries = items.map(entry => (
-      <tr 
-        key={entry.id}
-        className="table-row"
-        value={JSON.stringify(entry)}
-        onClick={this.copyToClipboard}
+  return (
+    <Styles>
+      <section
+        id="table-container"
       >
-        {Object.entries(entry).map(([key, value]) => (
-          <td
-            key={`${entry.id}_${key}`}
-            className="text table-entry table-data"
-          >
-            {!value? "n/a" : value}
-          </td>
-        ))}
-      </tr>
-    )) || '';
-
-    return (
-      <Styles>
+        <h2
+          className="text g header-2 no-event"
+        >
+          See User Information Below
+        </h2>
+        <h3 
+          className="text g header-3 no-event"
+        >
+          (Click on an entry to copy it to your clipboard!)
+        </h3>
         <table
-            className="table"
+          id="table"
         >
           <tbody
             className="table-body"
           >
             <tr>
-              {Object.entries(this.props.tableEntries.data[0]).map(([key, value]) => (
+              {Object.entries(data[0]).map(([key, value]) => (
                 <th
                   key={key}
                   className="text table-entry table-head no-event"
@@ -139,22 +144,42 @@ class Table extends React.Component {
                 </th>
               ))}
             </tr>
-            {entries}
+            {pagination.currentData && pagination.currentData.map(entry => (
+              <tr 
+                key={entry.id}
+                className="table-row"
+                value={JSON.stringify(entry)}
+                onClick={copyToClipboard}
+              >
+                {Object.entries(entry).map(([key, value]) => (
+                  <td
+                    key={`${entry.id}_${key}`}
+                    className="text table-entry table-data"
+                  >
+                    {!value? "n/a" : value}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
         <ReactPaginate
-           previousLabel={'◄'}
-           nextLabel={'►'}
-           pageCount={pages}
-           onPageChange={this.handlePageClick}
-           containerClassName={'pagination'}
-           activeClassName={'active'}
+          previousLabel="◄"
+          nextLabel="►"
+          breakLabel="..."
+          breakClassName="break-me"
+          pageCount={pagination.pageCount}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={3}
+          onPageChange={HandlePageClick}
+          containerClassName="pagination"
+          activeClassName="active"
+          pageClassName="page-link"
         />
-      </Styles>
-    )
-  }
+      </section>
+    </Styles>
+  )
 }
-
 
 
 export default Table;
