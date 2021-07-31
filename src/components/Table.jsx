@@ -92,13 +92,13 @@ const Table = (props) => {
   useEffect(() => {
     setPagination((prevState) => ({
       ...prevState,
-      pageCount: prevState.data.length / prevState.numberPerPage,
-      currentData: prevState.data.slice(
+      pageCount: props.data.length / pagination.numberPerPage,
+      currentData: props.data.slice(
         pagination.offset,
         pagination.offset + pagination.numberPerPage,
       ),
     }));
-  }, [pagination.numberPerPage, pagination.offset]);
+  }, [pagination.numberPerPage, pagination.offset, props.data]);
 
   const HandlePageClick = (event) => {
     const { selected } = event;
