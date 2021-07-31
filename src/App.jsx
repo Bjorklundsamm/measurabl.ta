@@ -9,6 +9,9 @@ import SearchBar from "./components/SearchBar.jsx";
 import Table from "./components/Table.jsx";
 import Footer from "./components/Footer.jsx";
 
+// Resources 
+import StaticData from "./static-copy.json"
+
 
 
 const Styles = styled.div`
@@ -99,7 +102,7 @@ class App extends Component {
       data: [
         {"id": "DATA MISSING"}
       ],
-      dataRecieved: false,
+      devMode: true,
     };
     this.search = this.search.bind(this);
     this.getData = this.getData.bind(this);
@@ -112,7 +115,9 @@ class App extends Component {
   }
 
 // Requests
+// Requests
   getData() {
+    if(!this.state.devMode) {
     let url = '/get-data';
     let reqData = [
       'http://5c37c33f7820ff0014d927c5.mockapi.io/msr/names',
@@ -131,25 +136,33 @@ class App extends Component {
         })
       })
       .catch(console.log)
+    } else {
+      this.setState({
+        data: StaticData
+      })
+    }
   }
-
+  
 // Search Bar
   search(q, callback) {
     if(q) {
     let { data } = this.state;
     let matches = [];
-    for (var entry in data) {
-      Object.keys((key) => {
-        if(entry[key].includes(q)) {
-          matches.push(entry);
+    for (var entry of data) {
+      Object.keys(entry).forEach((key) => {
+        let str = JSON.stringify(entry[key]).toLowerCase();
+        if(str.includes(q)) {
+          matches.push(entry)
         }
       })
-    }
+    } if (!matches.length) matches.push({results: 'no matches found'});
     this.setState({
       data: matches
     })
    }
+   console.log(this.state.data)
   }
+  
   clearSearch(callback) {
     callback();
   }
