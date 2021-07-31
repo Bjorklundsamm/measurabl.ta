@@ -44,7 +44,7 @@ On successfull start expect message: `Service running on PORT#`
 
 On failure please inspect the message beginning at line: `-UNABLE TO START-`
 #### Starting the Optimized Production Build
-- Run the following commands to initialize your instance(currently configured to process.env.PORT || localhost:3000localhost:3003):
+- Run the following commands to initialize your instance(currently configured to process.env.PORT || localhost:3000):
 ```sh
 npm run build
 npm run server
