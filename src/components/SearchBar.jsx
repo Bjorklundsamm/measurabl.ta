@@ -11,7 +11,7 @@ const Styles = styled.div`
 
   #submit-btn {
     background-color: rgba(0,177,143,1);
-    padding: 2 10 2 10;
+    padding: 2px 10px 2px 10px;
     border-radius: 50px;
     &:hover {
       background: rgba(0,177,143,.5);

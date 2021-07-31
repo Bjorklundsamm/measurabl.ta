@@ -30,16 +30,6 @@ const Styles = styled.div`
     margin-bottom: 10px;
   }
 
-  .col {
-    display: flex;
-    flex-direction: col;
-  }
-
-  .center-align-y {
-    display: block;
-    align-items: center;
-  }
-
   .center-align-x {
     justify-content: center;
   }
@@ -76,10 +66,6 @@ const Styles = styled.div`
 
   .no-event {
     pointer-events: none;
-  }
-
-  .show-border {
-    border: 5px rgba(255,255,255,1) dashed;
   }
 
 //SVG Waves
@@ -125,8 +111,17 @@ class App extends Component {
 
 // Requests
   getData() {
-    let url = 'http://5c37c33f7820ff0014d927c5.mockapi.io/msr/names';
-    axios.get(url)
+    let url = '/get-data';
+    let reqData = [
+      'http://5c37c33f7820ff0014d927c5.mockapi.io/msr/names',
+      'http://5c37c33f7820ff0014d927c5.mockapi.io/msr/ages'
+    ];
+    
+    axios.get(url, {
+      params: {
+        urls: reqData
+      },
+    })
       .then(({data}) => {
         this.setState({
           data,
