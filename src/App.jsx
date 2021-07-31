@@ -149,12 +149,12 @@ class App extends Component {
     let { data } = this.state;
     let matches = [];
     for (var entry of data) {
-      Object.keys(entry).forEach((key) => {
+      for (var key in entry) {
         let str = JSON.stringify(entry[key]).toLowerCase();
         if(str.includes(q)) {
           matches.push(entry)
         }
-      })
+      }
     } if (!matches.length) matches.push({results: 'no matches found'});
     this.setState({
       data: matches
@@ -199,7 +199,7 @@ class App extends Component {
             <div
               className="row center-align-x"
             >
-              {this.state.dataRecieved && <Table data={this.state.data}/>}
+              <Table data={this.state.data}/>
             </div>
               <Footer />
           </div>
