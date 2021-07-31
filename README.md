@@ -10,13 +10,17 @@ Original prompt can be found at the following link:
 https://gist.github.com/kheiligh/1f8208ac1a91eee1db8b1d92c8d4d1fd
 
 ## Featured additions
-Inclusion of stylization libraries - Primarily made use of 'styled-components' library to recreate a barebones immitation of the Measurabl home through SVGs.
+### Inclusion of stylization libraries 
+Primarily made use of 'styled-components' library to recreate a barebones immitation of the Measurabl home through SVGs.
 
-Focus on Adaptability - With the original goal being to complete a FETCH from two different static sources and join them into a single table I decided to set out to make a more effective data retrieval system. The included system, baring in mind the general table form recieved from MySQL databases, is able to retrieve any number of fields and entries linked by a foreign key and effectively present them on screen. To see the requirements of the format for the retrieved data please see below.
+### Focus on Adaptability
+With the original goal being to complete a FETCH from two different static sources and join them into a single table I decided to set out to make a more effective data retrieval system. The included system, baring in mind the general table form recieved from MySQL databases, is able to retrieve any number of fields and entries linked by a foreign key and effectively present them on screen. To see the requirements of the format for the retrieved data please see below.
 
-Enchanced Scalability - Despite working with a smaller data set I preferred to focus on creating a table that would be able to properly display and interact with the data recieved and in pursuit of this I elected to format the table using pagination. By doing this, in a hypothetical scenario, I am able to maintain minimal loadtimes regardless of the amount to entries that need to be rendered to the page.
+### Enchanced Scalability
+Despite working with a smaller data set I preferred to focus on creating a table that would be able to properly display and interact with the data recieved and in pursuit of this I elected to format the table using pagination. By doing this, in a hypothetical scenario, I am able to maintain minimal loadtimes regardless of the amount to entries that need to be rendered to the page.
 
-Security Benefits - With security development being my aboslute long-term career goal I had the ambition to find some minor ways to help improve my components ability to protect any vulnerable information. While I decided to avoid taking any extreme routes such as cookie parsing, authentication, or cross-site verificaton; I did find a few minor yet effective methods of preventing the transmission of needless data. The main features including the transfer of data requests and modeling to the back end to ensure the public users are limited in their ability to retrieve information outside of intended plain text.
+### Security Benefits
+With security development being my aboslute long-term career goal I had the ambition to find some minor ways to help improve my components ability to protect any vulnerable information. While I decided to avoid taking any extreme routes such as cookie parsing, authentication, or cross-site verificaton; I did find a few minor yet effective methods of preventing the transmission of needless data. The main features including the transfer of data requests and modeling to the back end to ensure the public users are limited in their ability to retrieve information outside of intended plain text.
 
 ## Table of Contents
 1. [Usage](#Usage)
@@ -32,7 +36,7 @@ Security Benefits - With security development being my aboslute long-term career
 npm install
 ```
 #### Starting the Developer.ENV
-- Run the following commands to initialize your instance(currently configured to localhost:3003):
+- Run the following commands to initialize your instance(currently configured to process.env.PORT || localhost:3000):
 ```sh
 npm start
 ```
@@ -40,7 +44,7 @@ On successfull start expect message: `Service running on PORT#`
 
 On failure please inspect the message beginning at line: `-UNABLE TO START-`
 #### Starting the Optimized Production Build
-- Run the following commands to initialize your instance(currently configured to localhost:3003):
+- Run the following commands to initialize your instance(currently configured to process.env.PORT || localhost:3000localhost:3003):
 ```sh
 npm run build
 npm run server
