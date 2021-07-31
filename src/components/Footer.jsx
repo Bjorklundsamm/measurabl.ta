@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const Styles = styled.div`
   #footer {
       position: fixed;
-      bottom: 5;
-      right: 5;
+      bottom: 5px;
+      right: 5px;
       background: rgba(255,255,255,1);
       border-radius: 50px;
       padding: 10px;
@@ -22,7 +22,7 @@ const Styles = styled.div`
       text-align: center;
       width: 135px;
       border-radius: 50px;
-      margin: 0 10 5 10;
+      margin: 0px 10px 5px 10px;
       border-right: 2px rgba(0,177,143,1) solid;
       border-left: 2px rgba(0,177,143,1) solid;
       &:hover {
