@@ -33,7 +33,6 @@ module.exports = {
 
   getDataSet(entryModel, rawData) {
     console.log('Modeling raw data after entry template')
-    console.log(entryModel);
     let modelData = [];
     for(var dataSet of rawData) {
       for(var newEntry of dataSet) {

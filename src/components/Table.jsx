@@ -79,7 +79,6 @@ const Styles = styled.div`
 
 const Table = (props) => {
   const { data } = props;
-  console.log(props.data);
 
   // Pagination Settings
   const [pagination, setPagination] = useState({

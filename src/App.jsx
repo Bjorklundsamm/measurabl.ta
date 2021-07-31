@@ -103,10 +103,12 @@ class App extends Component {
     };
     this.search = this.search.bind(this);
     this.getData = this.getData.bind(this);
+    this.aLittleTreat = this.aLittleTreat.bind(this);
   }
 
   async componentDidMount() {
     this.getData();
+    this.aLittleTreat();
   }
 
 // Requests
@@ -136,13 +138,12 @@ class App extends Component {
     if(q) {
     let { data } = this.state;
     let matches = [];
-    for (var entry of data) {
-      if ((entry.id).indexOf(q.toLowerCase()) > -1) {
-        matches.push(entry);
-      }
-    }
-    if (!matches.length) {
-      matches.push({'id': 'No matches found...'})
+    for (var entry in data) {
+      Object.keys((key) => {
+        if(entry[key].includes(q)) {
+          matches.push(entry);
+        }
+      })
     }
     this.setState({
       data: matches
@@ -151,6 +152,15 @@ class App extends Component {
   }
   clearSearch(callback) {
     callback();
+  }
+
+// Check your Dev Console
+  aLittleTreat() {
+    let secret = "01010100 01101000 01100001 01101110 01101011 00100000 01111001 01101111 01110101 00100000 01100110 01101111 01110010 00100000 01111001 01101111 01110101 01110010 00100000 01100011 01101111 01101110 01110011 01101001 01100100 01100101 01110010 01100001 01110100 01101001 01101111 01101110 00100000 00101101 00100000 01010011 01100001 01101101 00100000 01000010 00101110"
+    var wordFromBinary = secret.match(/([10]{8}|\s+)/g).map(function(fromBinary){
+        return String.fromCharCode(parseInt(fromBinary, 2) );
+    }).join('');
+    return console.log(wordFromBinary);
   }
 
   render() {
