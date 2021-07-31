@@ -78,33 +78,6 @@ const Styles = styled.div`
 `
 
 const Table = (props) => {
-  const { data } = props;
-
-  // Pagination Settings
-  const [pagination, setPagination] = useState({
-    data: data,
-    offset: 0,
-    numberPerPage: 6,
-    pageCount: 0,
-    currentData: [],
-  });
-
-  useEffect(() => {
-    setPagination((prevState) => ({
-      ...prevState,
-      pageCount: prevState.data.length / prevState.numberPerPage,
-      currentData: prevState.data.slice(
-        pagination.offset,
-        pagination.offset + pagination.numberPerPage,
-      ),
-    }));
-  }, [pagination.numberPerPage, pagination.offset]);
-
-  const HandlePageClick = (event) => {
-    const { selected } = event;
-    const offset = selected * pagination.numberPerPage;
-    setPagination({ ...pagination, offset });
-  };
 
   let copyToClipboard = (e) => {
     e.preventDefault();
@@ -134,7 +107,7 @@ const Table = (props) => {
             className="table-body"
           >
             <tr>
-              {Object.entries(data[0]).map(([key, value]) => (
+              {Object.entries(props.data[0]).map(([key, value]) => (
                 <th
                   key={key}
                   className="text table-entry table-head no-event"
@@ -143,7 +116,7 @@ const Table = (props) => {
                 </th>
               ))}
             </tr>
-            {pagination.currentData && pagination.currentData.map(entry => (
+            {props.data.map((entry) => 
               <tr 
                 key={entry.id}
                 className="table-row"
@@ -159,22 +132,9 @@ const Table = (props) => {
                   </td>
                 ))}
               </tr>
-            ))}
+            )} 
           </tbody>
         </table>
-        <ReactPaginate
-          previousLabel="◄"
-          nextLabel="►"
-          breakLabel="..."
-          breakClassName="break-me"
-          pageCount={pagination.pageCount}
-          marginPagesDisplayed={1}
-          pageRangeDisplayed={3}
-          onPageChange={HandlePageClick}
-          containerClassName="pagination"
-          activeClassName="active"
-          pageClassName="page-link"
-        />
       </section>
     </Styles>
   )

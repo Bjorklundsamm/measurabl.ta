@@ -61,13 +61,13 @@ class SearchBar extends React.Component {
       })
     })
   }
+
   handleClear(event) {
     event.preventDefault();
-    this.props.clearSearch(() => {
-      this.setState({
-        search: ''
-      })
-    });
+    this.setState({
+      search: ''
+    })
+    this.props.clearSearch()
   }
 
   render() {
