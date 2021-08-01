@@ -27,6 +27,7 @@ While avoiding the needless inclusion of any extreme security enhancements I set
 1. [Requirements](#requirements)
 1. [Routes](#routes)
 1. [Schema](#schema)
+1. [Schema](#test)
 
 ## Usage
 - Fork repo and pull latest version to local machine or hosted instance.
@@ -86,7 +87,19 @@ Without availablity of a MySQL database a bit of creativity was required. Althou
         }
     ]
 ```
-
+## Test Cases
+```json
+Render Tests
+ [
+  expect React.app TO render IF !dataRecieved
+  expect Table TO NOT render IF data is not present
+  expect Table TO recieve StaticData IF server.response = "404"
+  expect Table.data TO use server.response.data IF Server.response = "200"
+  expect Server.response.data TO BE Array.length(1) - "[data: [{}.{}.{}]"
+  expect Search.results.length TO BE < data.length
+  expect Link TO BE 'clicked!' IF pointer event
+ ]
+```
 
 
 Further questions regarding the design or functionality of the featured web-application can be forwarded directly to myself via comment or email.
