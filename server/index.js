@@ -16,6 +16,7 @@ app.use(express.json());
 // Router
 app.use('/get-data', controller.get);
 
+
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
 });

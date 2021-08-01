@@ -4,31 +4,30 @@ import styled from 'styled-components';
 
 const Styles = styled.div`
   #footer {
-      position: fixed;
-      bottom: 5px;
-      right: 5px;
-      background: rgba(255,255,255,1);
-      border-radius: 50px;
-      padding: 10px;
-      z-index: 2019;
+    position: fixed;
+    bottom: 5px;
+    right: 0px;
+    background: rgba(0,177,143,1);
+    border: 10px solid rgba(255,255,255,1);
+    border-radius: 500px;
+    padding: 5px;
+    z-index: 2019;
   }
 
   #name {
-    text-align: center;
     width: 100%;
   }
 
   .link {
-      text-align: center;
-      width: 135px;
-      border-radius: 50px;
-      margin: 0px 10px 5px 10px;
-      border-right: 2px rgba(0,177,143,1) solid;
-      border-left: 2px rgba(0,177,143,1) solid;
-      &:hover {
-          background: 4px rgba(0,177,143,.5);
-          transition: .5s ease;
-      }
+    width: 135px;
+    border-radius: 50px;
+    margin: 0px 10px 5px 10px;
+    border-right: 2px rgba(255,255,255,1) solid;
+    border-left: 2px rgba(255,255,255,1) solid;
+    &:hover {
+      background: 4px rgba(255,255,255,.5);
+      transition: .5s ease;
+    }
   }
 `
 
@@ -43,7 +42,7 @@ const Footer = () => (
       >
         <h1
           id="name"
-          className="text g header-1 no-event"
+          className="text header-1 text-center no-event"
         >
           Samuel Björklund
         </h1>   
@@ -55,7 +54,7 @@ const Footer = () => (
           href="https://github.com/Bjorklundsamm"
           target="_blank"
           rel="noreferrer"
-          className="text g link"
+          className="text link text-center"
         >
           GitHub
         </a>
@@ -63,7 +62,7 @@ const Footer = () => (
           href="https://www.linkedin.com/in/bjorklundsamm/"
           target="_blank"
           rel="noreferrer"
-          className="text g link"
+          className="text link text-center"
         >
           LinkedIn
         </a>
@@ -71,7 +70,7 @@ const Footer = () => (
           href="https://Sbjorklund.me"
           target="_blank"
           rel="noreferrer"
-          className="text g link"
+          className="text link text-center"
         >
           Portfolio
         </a>

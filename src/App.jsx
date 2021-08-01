@@ -23,7 +23,6 @@ const Styles = styled.div`
     width: 100%;
     background: rgb(22,45,70);
     background: linear-gradient(180deg, rgba(22,45,70,1) 31%, rgba(20,59,78,1) 83%, rgba(17,71,85,1) 100%);
-    background-size: cover;
   }
 // default layouts
   .row {
@@ -67,6 +66,10 @@ const Styles = styled.div`
     padding: 0;
   }
 
+  .text-center {
+    text-align: center;
+  }
+
   .no-event {
     pointer-events: none;
   }
@@ -99,52 +102,56 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: [
-        {"id": "DATA MISSING"}
-      ],
-      devMode: true,
+      data: [],
+      dataReceived: false,
     };
     this.search = this.search.bind(this);
     this.getData = this.getData.bind(this);
+    this.setData = this.setData.bind(this);
     this.aLittleTreat = this.aLittleTreat.bind(this);
   }
 
   async componentDidMount() {
-    this.getData();
+    await this.getData();
+    await this.setData();
+
     this.aLittleTreat();
   }
 
 // Requests
-// Requests
-  getData() {
-    if(!this.state.devMode) {
+  async getData() {
     let url = '/get-data';
     let reqData = [
       'http://5c37c33f7820ff0014d927c5.mockapi.io/msr/names',
       'http://5c37c33f7820ff0014d927c5.mockapi.io/msr/ages'
     ];
-    
     axios.get(url, {
       params: {
         urls: reqData
       },
     })
-      .then(({data}) => {
-        this.setState({
-          data,
-          dataRecieved: true,
-        })
-      })
-      .catch(console.log)
-    } else {
+    .then(({data}) => {
       this.setState({
-        data: StaticData
+        data,
+        dataReceived: true,
       })
-    }
+    })
+    .catch((console.log))
   }
-  
+
+  async setData() {
+    setTimeout(() => {
+      let { dataReceived } = this.state;
+      if(!dataReceived) {
+        this.setState({
+          data: StaticData,
+        })
+      }
+    }, 1000)
+  }
+
 // Search Bar
-  search(q, callback) {
+  async search(q, callback) {
     if(q) {
     let { data } = this.state;
     let matches = [];
@@ -152,7 +159,16 @@ class App extends Component {
       for (var key in entry) {
         let str = JSON.stringify(entry[key]).toLowerCase();
         if(str.includes(q)) {
-          matches.push(entry)
+          let idMatch = false;
+          if(matches.length < 1) matches.push(entry)
+          for (var match of matches) {
+              if (match.id === entry.id) {
+                  idMatch = true;
+              }
+          }
+          if(!idMatch) {
+              matches.push(entry)
+          }
         }
       }
     } if (!matches.length) matches.push({results: 'no matches found'});
@@ -160,12 +176,8 @@ class App extends Component {
       data: matches
     })
    }
-   console.log(this.state.data)
   }
-  
-  clearSearch(callback) {
-    callback();
-  }
+
 
 // Check your Dev Console
   aLittleTreat() {
@@ -179,30 +191,30 @@ class App extends Component {
   render() {
     return (
       <Styles>
+        <div
+          id="homepage"
+        >
+          <section>
+            <svg id="wave-1" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1366 358.67">
+              <path className="cls-1" d="M0,225s300-257,683,0,683,-200,683,-100V400H0Z" transform="translate(0 -41.33)"/>
+            </svg>
+            <svg id="wave-2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1366 358.67">
+              <path className="cls-1" d="M0,300s500-175,650,40,683,-350,900,100V400H0Z" transform="translate(0 25)"/>
+            </svg>
+          </section>
+          <Header className="container"/>
           <div
-            id="homepage"
+            className="row center-align-x"
           >
-            <section>
-              <svg id="wave-1" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1366 358.67">
-                <path className="cls-1" d="M0,225s300-257,683,0,683,-200,683,-100V400H0Z" transform="translate(0 -41.33)"/>
-              </svg>
-              <svg id="wave-2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1366 358.67">
-                <path className="cls-1" d="M0,300s500-175,650,40,683,-350,900,100V400H0Z" transform="translate(0 25)"/>
-              </svg>
-            </section>
-            <Header className="container"/>
-            <div
-              className="row center-align-x"
-            >
-              <SearchBar  handleSearch={this.search} clearSearch={this.clearSearch}/>
-            </div>
-            <div
-              className="row center-align-x"
-            >
-              <Table data={this.state.data}/>
-            </div>
-              <Footer />
+            <SearchBar  handleSearch={this.search} clearSearch={this.getData}/>
           </div>
+          <div
+            className="row center-align-x"
+          >
+            {this.state.data.length > 0 && <Table data={this.state.data}/>}
+          </div>
+            <Footer />
+        </div>
       </Styles>
     )
   }

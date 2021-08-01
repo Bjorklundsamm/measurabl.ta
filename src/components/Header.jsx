@@ -3,23 +3,23 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Styles = styled.div`
-    #header {
-      position: relative;
-      top: 0;
-      left: 0;
-      z-index: 2019;
-    }
+  #header {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 2019;
+  }
 
-    #title {
-      text-decoration: none;
-      cursor: pointer;
-    }
+  #title {
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-    #measurabl-logo {
-      width: 20%;
-      min-width: 75px;
-      border-bottom: 5px solid #ffffff;
-    }
+  #measurabl-logo {
+    width: 20%;
+    min-width: 200px;
+    border-bottom: 5px solid #ffffff;
+  }
 `
 
 
@@ -54,7 +54,6 @@ const Header = () => (
           </h1>
         </a>
       </div>
-
     </section>
   </Styles>
 );

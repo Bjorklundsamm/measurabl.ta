@@ -5,18 +5,18 @@ const e = require('express');
 
 module.exports = {
   async getRequest(url) {
-          const promise = axios.get(url);
-          const dataPromise = promise.then((response) => response.data);
-          return dataPromise;
+    const promise = axios.get(url);
+    const dataPromise = promise.then((response) => response.data);
+    return dataPromise;
   },
 
   async getRawData(urls) {
     console.log('Requesting data');
     let rawData = [];
     for (const url of urls){
-        let dataSet = await this.getRequest(url);
-        rawData.push(dataSet)
-      }
+      let dataSet = await this.getRequest(url);
+      rawData.push(dataSet)
+    }
     return rawData
   },
 
@@ -39,25 +39,25 @@ module.exports = {
         let entryTmp = {};
         Object.keys(entryModel).forEach((key) =>{
           if(newEntry[key] !== undefined) {
-              entryTmp[key] = newEntry[key]
+            entryTmp[key] = newEntry[key]
           } else {
-              entryTmp[key] = entryModel[key]
+            entryTmp[key] = entryModel[key]
           }
         })
         if(modelData.length < 1) modelData.push(entryTmp)
         idMatch = false;
         for (var currentEntries of modelData) {
-            if (currentEntries.id === entryTmp.id) {
-                idMatch = true;
-                Object.keys(entryTmp).forEach((key) => {
-                    if(entryTmp[key] !== 'n/a') {
-                        currentEntries[key] = entryTmp[key]
-                    }
-                  })
-            }
+          if (currentEntries.id === entryTmp.id) {
+            idMatch = true;
+            Object.keys(entryTmp).forEach((key) => {
+              if(entryTmp[key] !== 'n/a') {
+                currentEntries[key] = entryTmp[key]
+              }
+            })
+          }
         }
         if(!idMatch) {
-            modelData.push(entryTmp)
+          modelData.push(entryTmp)
         }
       }
     }

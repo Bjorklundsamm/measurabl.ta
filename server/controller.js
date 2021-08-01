@@ -14,5 +14,5 @@ module.exports = {
     const entryModel = await model.getEntryModel(rawData);
     const modelData = await model.getDataSet(entryModel, rawData);
     await res.send(modelData);
-  }
+  },
 }

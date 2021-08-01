@@ -7,7 +7,6 @@ import $ from 'jquery';
 const Styles = styled.div`
   #table-container {
     position: relative;
-    text-align: center;
     background: rgba(255,255,255,1);
     border-radius: 10px;
     padding: 10px;
@@ -15,12 +14,11 @@ const Styles = styled.div`
   }
 
   #table {
-      position: relative;
-      width: 100%;
-      background: rgba(0,177,143,1);
-      padding: 10px;
-      border-radius: 10px;
-      text-align: center;
+    position: relative;
+    width: 100%;
+    background: rgba(0,177,143,1);
+    padding: 10px;
+    border-radius: 10px;
   }
 
   .table-row:hover {
@@ -29,7 +27,7 @@ const Styles = styled.div`
   }
 
   .table-entry {
-    padding: 5 10 5 10;
+    padding: 5px 10px 5px 10px;
   }
 
   .table-head {
@@ -37,7 +35,7 @@ const Styles = styled.div`
     text-decoration: underline 2px rgba(255,255,255,1) !important;
   }
 
-//Pagination Styles
+// Pagination Styles
   .pagination {
     display: flex;
     justify-content: center;
@@ -106,16 +104,21 @@ const Table = (props) => {
     setPagination({ ...pagination, offset });
   };
 
-  let copyToClipboard = (e) => {
+  let copyToClipboard = async (e) => {
     e.preventDefault();
-    var $i = $(e.target).closest('tr').attr('value');
-    navigator.clipboard.writeText($i);
+    try {
+      let $i = await $(e.target).closest('tr').attr('value');
+      await navigator.clipboard.writeText($i);
+    } catch(err) {
+      console.log('Failed to copy: ', err);
+    }
   };
 
   return (
     <Styles>
       <section
         id="table-container"
+        className="text-center"
       >
         <h2
           className="text g header-2 no-event"
@@ -129,6 +132,7 @@ const Table = (props) => {
         </h3>
         <table
           id="table"
+          className="text-center"
         >
           <tbody
             className="table-body"

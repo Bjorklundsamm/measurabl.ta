@@ -4,8 +4,7 @@
 .pnp.js
 
 # testing
-# *README* Testing suite included intentionally to be reviewed in assessment.
-# /coverage
+/coverage
 
 # production
 /build
