@@ -27,7 +27,7 @@ While avoiding the needless inclusion of any extreme security enhancements I set
 1. [Requirements](#requirements)
 1. [Routes](#routes)
 1. [Schema](#schema)
-1. [Schema](#test)
+1. [Test-cases](#test-cases)
 
 ## Usage
 - Fork repo and pull latest version to local machine or hosted instance.
@@ -87,7 +87,7 @@ Without availablity of a MySQL database a bit of creativity was required. Althou
         }
     ]
 ```
-## Test Cases
+## Test-cases
 ```json
 Render Tests
  [
