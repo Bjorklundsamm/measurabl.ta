@@ -14,13 +14,13 @@ https://gist.github.com/kheiligh/1f8208ac1a91eee1db8b1d92c8d4d1fd
 Primarily made use of 'styled-components' library to recreate a barebones immitation of the Measurabl home through SVGs.
 
 ### Focus on Adaptability
-With the original goal being to complete a FETCH from two different static sources and join them into a single table I decided to set out to make a more effective data retrieval system. The included system, baring in mind the general table form recieved from MySQL databases, is able to retrieve any number of fields and entries linked by a foreign key and effectively present them on screen. To see the requirements of the format for the retrieved data please see below.
+Originally in discussion of my hopes and ambitions as a team member of Measurabl it was mentioned that despite my skills revolving primarily around front-end development; I intended to pursue a future in Fullstack with a focus on security. Baring that in mind I made a handful of additions to the original prompt of the challenge that typically fall outside the range of frontend design. This includes some functional components such as a simple search bar, pagination, and a back-end server designed to help model and return data in an effective and secure process. 
 
 ### Enchanced Scalability
-Despite working with a smaller data set I preferred to focus on creating a table that would be able to properly display and interact with the data recieved and in pursuit of this I elected to format the table using pagination. By doing this, in a hypothetical scenario, I am able to maintain minimal loadtimes regardless of the amount to entries that need to be rendered to the page.
+Despite working with a smaller data set I preferred to focus on creating a table that would be able to properly display and interact with the data recieved and in pursuit of this I elected to format the table using pagination. Additionally it can be noted that the main table featured on the page has be re-worked to adapt to any number of tables/entries fed to it provided they match the pre-made data-sets within the assessment's prompt. By doing this, in a hypothetical scenario, I am able to maintain minimal loadtimes regardless of the amount to entries that need to be rendered to the page. For the exact requirements of the data set's format please see below. 
 
 ### Security Benefits
-With security development being my aboslute long-term career goal I had the ambition to find some minor ways to help improve my components ability to protect any vulnerable information. While I decided to avoid taking any extreme routes such as cookie parsing, authentication, or cross-site verificaton; I did find a few minor yet effective methods of preventing the transmission of needless data. The main features including the transfer of data requests and modeling to the back end to ensure the public users are limited in their ability to retrieve information outside of intended plain text as well as the inclusion of a basic testing suite to confirm components are only capable to interacting with the dom appropriately.
+While avoiding the needless inclusion of any extreme security enhancements I set out to find some small additions that felt they matched the theme of the assessment prompt. By doing this I was able to find a few simple boosts that are able to help remove potential threats from the hands of end users. The most notable features would be the closed ended response system present through-out the apps stateless component, the transferring of the request system to the back-end to ensure users are only able to recieve necessary flat data, and the limiting of any unnecessary page interactions via cursor or input. 
 
 ## Table of Contents
 1. [Usage](#Usage)
@@ -35,7 +35,7 @@ With security development being my aboslute long-term career goal I had the ambi
 ```sh
 npm install
 ```
-#### Starting the Developer.ENV
+### Starting the Developer.ENV
 - Run the following commands to initialize your instance(currently configured to process.env.PORT || localhost:3000):
 ```sh
 npm start
@@ -43,7 +43,7 @@ npm start
 On successfull start expect message: `Service running on PORT#`
 
 On failure please inspect the message beginning at line: `-UNABLE TO START-`
-#### Starting the Optimized Production Build
+### Starting the Optimized Production Build
 - Run the following commands to initialize your instance(currently configured to process.env.PORT || localhost:3000):
 ```sh
 npm run build
@@ -74,7 +74,7 @@ On failure please inspect the message beginning at line: `-UNABLE TO START-`
 ```
 
 ## Schema
-Without availablity of a MySQL database a bit of creativity was required. Although this does NOT been that the page is not ready to handle as much data as you can throw at it. In order to make use of the page with your data sets please see that your tables are formatted with a matching id key and follow the schema provided below. The back-end model system will automatically sort and format your data into a single table provided there are not colliding columns exluding the id.
+Without availablity of a MySQL database a bit of creativity was required. Although this does NOT been that the page is not ready to handle as much data as you can throw at it. In order to make use of the page with your data sets please see that your tables are formatted with a matching id key and follow the schema provided below. The back-end model system will automatically sort and format your data into a single table overwriting colliding columns matched by id.
 
 ```json
     [
@@ -88,4 +88,8 @@ Without availablity of a MySQL database a bit of creativity was required. Althou
 ```
 
 
-#### Samuel Bjorklund
+
+Further questions regarding the design or functionality of the featured web-application can be forwarded directly to myself via comment or email.
+
+#### Thank you for your continued interest and consideration,
+### Samuel Bjorklund
