@@ -89,7 +89,7 @@ Without availablity of a MySQL database a bit of creativity was required. Althou
 ```
 ## Test-cases
 ```json
-Render Tests
+Example test cases
  [
   expect React.app TO render IF !dataRecieved
   expect Table TO NOT render IF data is not present
