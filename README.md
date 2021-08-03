@@ -60,6 +60,20 @@ On failure please inspect the message beginning at line: `-UNABLE TO START-`
 
 ## Routes
 ### End-user Routes
+-GET `/get-status`
+
+**Success Status Code:** `200`
+
+**Returns:** Expect response status of '200'.
+```json
+  {
+    Response: {
+      ...
+      Status: '200'
+    }
+  }
+```
+
 -GET `/get-data`
 
 **Success Status Code:** `200`
