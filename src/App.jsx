@@ -103,23 +103,46 @@ class App extends Component {
     super(props)
     this.state = {
       data: [],
-      dataReceived: false,
+      status: null
     };
     this.search = this.search.bind(this);
+    this.getStatus = this.getStatus.bind(this);
     this.getData = this.getData.bind(this);
     this.setData = this.setData.bind(this);
     this.aLittleTreat = this.aLittleTreat.bind(this);
   }
 
   async componentDidMount() {
-    await this.getData();
-    await this.setData();
+    await this.getStatus();
+    setTimeout(() => {
+      let { status } = this.state
+      if(status === 'live') {
+        this.getData();
+      } else {
+        this.setData();
+      }
+    }, 3000)
 
     this.aLittleTreat();
   }
 
 // Requests
+  async getStatus() {
+    let url = '/get-status';
+    axios.get(url)
+     .then(() => {
+       this.setState({
+         status: 'live'
+       })
+     }).catch(() => {
+      this.setState({
+        status: 'devMode'
+      })
+    })
+  }
+
   async getData() {
+    console.log(this.state.status)
     let url = '/get-data';
     let reqData = [
       'http://5c37c33f7820ff0014d927c5.mockapi.io/msr/names',
@@ -127,7 +150,7 @@ class App extends Component {
     ];
     axios.get(url, {
       params: {
-        urls: reqData
+        urls: reqData,
       },
     })
     .then(({data}) => {
@@ -140,14 +163,9 @@ class App extends Component {
   }
 
   async setData() {
-    setTimeout(() => {
-      let { dataReceived } = this.state;
-      if(!dataReceived) {
-        this.setState({
-          data: StaticData,
-        })
-      }
-    }, 1000)
+    this.setState({
+      data: StaticData,
+    })
   }
 
 // Search Bar
@@ -211,7 +229,7 @@ class App extends Component {
           <div
             className="row center-align-x"
           >
-            {this.state.data.length > 0 && <Table data={this.state.data}/>}
+            <Table data={this.state.data} status={this.state.status} />
           </div>
             <Footer />
         </div>

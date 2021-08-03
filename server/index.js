@@ -15,6 +15,7 @@ app.use(express.json());
 
 // Router
 app.use('/get-data', controller.get);
+app.use('/get-status', controller.status);
 
 
 app.listen(PORT, () => {

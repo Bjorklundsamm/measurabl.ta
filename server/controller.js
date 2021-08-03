@@ -15,4 +15,8 @@ module.exports = {
     const modelData = await model.getDataSet(entryModel, rawData);
     await res.send(modelData);
   },
+
+  status(req, res) {
+    res.send('200')
+  }
 }

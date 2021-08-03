@@ -15,10 +15,12 @@ const Styles = styled.div`
 
   #table {
     position: relative;
-    width: 100%;
+    height: 0px;
+    width: 0px;
     background: rgba(0,177,143,1);
     padding: 10px;
     border-radius: 10px;
+    display: none;
   }
 
   .table-row:hover {
@@ -33,6 +35,46 @@ const Styles = styled.div`
   .table-head {
     font-size: 26px !important;
     text-decoration: underline 2px rgba(255,255,255,1) !important;
+  }
+
+// Loading Symbol
+  .loading{
+    width: 30px;
+    height: 30px;
+    margin-left: 45%;
+    margin-top: 5%;
+    border-top: 9px solid  rgba(0,177,143,1);
+    border-left: 8px solid   rgba(0,177,143,.8);
+    border-bottom: 6px solid   rgba(0,177,143,.6);
+    border-right: 6px solid  rgba(0,177,143,.4);
+    border-radius: 100%;
+    -webkit-animation: nomAnim 2s linear 0.5s infinite; 
+    animation: nomAnim 2s linear 0.5s infinite;
+  }
+  
+  
+  @keyframes nomAnim{
+    50%{
+      transform: rotate(360deg);
+      -webkit-transform: rotate(760deg);
+    }
+    
+    100%{
+      transform: rotate(720deg);
+      -webkit-transform: rotate(720deg);
+    }
+  }
+  
+  @-webkit-keyframes nomAnim {
+    50%{
+      transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+    }
+    
+    100%{
+      transform: rotate(720deg);
+      -webkit-transform: rotate(720deg);
+    }
   }
 
 // Pagination Styles
@@ -78,6 +120,7 @@ const Styles = styled.div`
 const Table = (props) => {
   const { data } = props;
 
+
   // Pagination Settings
   const [pagination, setPagination] = useState({
     data: data,
@@ -114,6 +157,11 @@ const Table = (props) => {
     }
   };
 
+// Table FadeIn
+  if(data.length > 0) {
+    $('#table').fadeIn(1000)
+  }
+
   return (
     <Styles>
       <section
@@ -130,55 +178,77 @@ const Table = (props) => {
         >
           (Click on an entry to copy it to your clipboard!)
         </h3>
-        <table
-          id="table"
-          className="text-center"
-        >
-          <tbody
-            className="table-body"
-          >
-            <tr>
-              {Object.entries(data[0]).map(([key, value]) => (
-                <th
-                  key={key}
-                  className="text table-entry table-head no-event"
-                >
-                  {!key? "n/a" : key}
-                </th>
-              ))}
-            </tr>
-            {pagination.currentData && pagination.currentData.map(entry => (
-              <tr 
-                key={entry.id}
-                className="table-row"
-                value={JSON.stringify(entry)}
-                onClick={copyToClipboard}
+        {props.data.length === 0 &&
+          <>
+            <div 
+              className="loading center-x"
+            ></div>
+            <h1
+              className="text g header-2"
+            >
+              loading table entries
+            </h1>
+            <h3
+              className="text g header-3"
+            >
+              Data not loading? Make sure the end-points you're requesting are online!
+            </h3>
+          </>
+        }
+        {props.data.length > 0 &&
+          <>
+            <table
+              id="table"
+              className="text-center"
+            >
+              <tbody
+                className="table-body"
               >
-                {Object.entries(entry).map(([key, value]) => (
-                  <td
-                    key={`${entry.id}_${key}`}
-                    className="text table-entry table-data"
+                <tr>
+                  {Object.entries(data[0]).map(([key, value]) => (
+                    <th
+                      key={key}
+                      className="text table-entry table-head no-event"
+                    >
+                      {!key? "n/a" : key}
+                    </th>
+                  ))}
+                </tr>
+                {pagination.currentData && pagination.currentData.map(entry => (
+                  <tr
+                    key={entry.id}
+                    id={entry.id}
+                    className="table-row"
+                    value={JSON.stringify(entry)}
+                    onClick={copyToClipboard}
                   >
-                    {!value? "n/a" : value}
-                  </td>
+                    {Object.entries(entry).map(([key, value]) => (
+                      <td
+                        key={`${entry.id}_${key}`}
+                        className="text table-entry table-data"
+                      >
+                        {!value? "n/a" : value}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <ReactPaginate
-          previousLabel="◄"
-          nextLabel="►"
-          breakLabel="..."
-          breakClassName="break-me"
-          pageCount={pagination.pageCount}
-          marginPagesDisplayed={1}
-          pageRangeDisplayed={3}
-          onPageChange={HandlePageClick}
-          containerClassName="pagination"
-          activeClassName="active"
-          pageClassName="page-link"
-        />
+              </tbody>
+            </table>
+            <ReactPaginate
+              previousLabel="◄"
+              nextLabel="►"
+              breakLabel="..."
+              breakClassName="break-me"
+              pageCount={pagination.pageCount}
+              marginPagesDisplayed={1}
+              pageRangeDisplayed={3}
+              onPageChange={HandlePageClick}
+              containerClassName="pagination"
+              activeClassName="active"
+              pageClassName="page-link"
+            />
+          </>
+          }
       </section>
     </Styles>
   )
